@@ -165,6 +165,7 @@ function AlunoListaAdmin({
                                 <div className="text-sm text-gray-500 max-w-xs truncate">{aluno.idade}</div>
                             </td>
 
+
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                 <button
                                     onClick={() => onEditar(aluno.id!)}

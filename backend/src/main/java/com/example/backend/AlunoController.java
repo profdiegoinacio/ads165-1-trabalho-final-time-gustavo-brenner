@@ -51,8 +51,8 @@ public class AlunoController {
     }
     @GetMapping
     public ResponseEntity<List<Aluno>> buscarAlunos(
-        @RequestParam(name = "nome", required = true) String nome,
-        @RequestParam(name = "idade", required = true) Integer idade,
+        @RequestParam(name = "nome", required = false) String nome,
+        @RequestParam(name = "idade", required = false) Integer idade,
         @RequestParam(name="turmas", required = false) List<String> turmas,
         @RequestParam(name = "ordenarPor", defaultValue = "nome") String ordenarPor,
 
@@ -61,6 +61,8 @@ public class AlunoController {
         @RequestParam(name = "tamanho", required = false) Integer tamanho){
 
         List<Aluno> alunosFiltrados = filtrarAlunos(nome, idade, turmas);
+        alunosFiltrados = ordenarAlunos(alunosFiltrados, ordenarPor, ordem);
+
 
 
         if (pagina != null && tamanho != null) {
@@ -124,9 +126,9 @@ public class AlunoController {
                     }
                     aluno.setNome((String) value);
                 }
-                case "categorias" -> {
+                case "turmas" -> {
                     if (!(value instanceof List<?>)) {
-                        throw new IllegalArgumentException("O campo 'categorias' deve ser uma lista de Strings.");
+                        throw new IllegalArgumentException("O campo 'turmas' deve ser uma lista de Strings.");
                     }
                     List<String> turmas = ((List<?>) value).stream()
                             .map(Object::toString)

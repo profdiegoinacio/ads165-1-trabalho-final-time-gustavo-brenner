@@ -6,7 +6,7 @@ import {AlunoService} from "@/services/aluno-services";
 import AlunoForm from "@/app/components/aluno-form";
 
 export default function AdminAlunos() {
-    const [alunos, setAlunos] = useState<Aluno[]>([]);
+
     const [modoEdicao, setModoEdicao] = useState<boolean>(false);
     const [alunoSelecionado, setAlunoSelecionado] = useState<number | undefined>(undefined);
     const [atualizarLista, setAtualizarLista] = useState<number>(0);
@@ -103,7 +103,7 @@ function AlunoListaAdmin({
             }
         }
 
-        carregarAlunos();
+         carregarAlunos();
     }, [chaveAtualizacao]);
 
 

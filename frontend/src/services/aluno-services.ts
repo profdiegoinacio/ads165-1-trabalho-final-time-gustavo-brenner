@@ -65,7 +65,7 @@ export const AlunoService = {
         });
 
         if (!response.ok) {
-            throw new Error(`Erro ao atualizar produto: ${response.status}`);
+            throw new Error(`Erro ao atualizar aluno: ${response.status}`);
         }
 
         return response.json();

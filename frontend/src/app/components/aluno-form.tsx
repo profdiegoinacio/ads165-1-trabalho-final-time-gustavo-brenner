@@ -1,6 +1,6 @@
 'use client';
 
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Aluno} from "@/app/types/aluno";
 import {AlunoService} from "@/services/aluno-services";
 
@@ -35,7 +35,7 @@ export default function AlunoForm({alunoId, onSalvar, onCancelar}: AlunoFormProp
                     // Garantir que todos os campos existam, mesmo que a API não retorne
                     setAluno({
                         nome: dadosAluno.nome || '',
-                        idade: dadosAluno.idade || 0,
+                        idade: dadosAluno.idade,
                         id: dadosAluno.id
                     });
                 } catch (error) {
@@ -46,7 +46,7 @@ export default function AlunoForm({alunoId, onSalvar, onCancelar}: AlunoFormProp
                 }
             }
 
-            carregarAluno();
+            void carregarAluno();
         }
     }, [alunoId]);
 

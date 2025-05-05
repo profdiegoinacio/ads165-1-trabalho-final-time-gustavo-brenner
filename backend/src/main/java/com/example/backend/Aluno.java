@@ -28,6 +28,10 @@ public class Aluno {
     public Aluno() {
     }
 
+    public Aluno(Long id, String nome, Integer idade) {
+        this(id, nome, idade, Collections.emptyList());
+    }
+
 
     public Aluno(Long id, String nome, Integer idade, List<String> turmas) {
         this.id = id;

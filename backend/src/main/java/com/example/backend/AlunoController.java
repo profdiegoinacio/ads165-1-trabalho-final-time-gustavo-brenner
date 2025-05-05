@@ -1,17 +1,13 @@
 package com.example.backend;
 
-import com.example.backend.IdGenerator;
+
 import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import org.springframework.boot.actuate.autoconfigure.observation.ObservationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +105,47 @@ public class AlunoController {
 
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<Aluno> atualizarParcialmenteAluno(@PathVariable Long id, @RequestBody Map<String, Object> fields) {
+        Aluno aluno = alunos.stream()
+                .filter(a -> a.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException("Aluno não encontrado com o ID: " + id));
+
+        fields.forEach((key, value) -> {
+            if (value == null) {
+                throw new IllegalArgumentException("O valor para o campo '" + key + "' não pode ser nulo.");
+            }
+
+            switch (key) {
+                case "nome" -> {
+                    if (!(value instanceof String)) {
+                        throw new IllegalArgumentException("O campo 'nome' deve ser uma String.");
+                    }
+                    aluno.setNome((String) value);
+                }
+                case "categorias" -> {
+                    if (!(value instanceof List<?>)) {
+                        throw new IllegalArgumentException("O campo 'categorias' deve ser uma lista de Strings.");
+                    }
+                    List<String> turmas = ((List<?>) value).stream()
+                            .map(Object::toString)
+                            .collect(Collectors.toList());
+                    aluno.setTurmas(turmas);
+                }
+                default -> throw new IllegalArgumentException("Campo inválido: " + key);
+            }
+        });
+
+        return ResponseEntity.ok(aluno);
+    }
+
+    @ExceptionHandler(NoSuchElementException.class)
+    public ResponseEntity<String> handleNoSuchElementException(NoSuchElementException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+
 
     private Aluno recuperarAlunoPorId(Long id) {
         return alunos.stream().filter(aluno -> aluno.getId().equals(id)).findFirst().orElseThrow(() -> new NoSuchElementException("Aluno não encontrado com o Id"));
@@ -121,6 +158,19 @@ public class AlunoController {
                 .filter(p -> turmas == null || turmas.stream()
                         .anyMatch(turma -> p.getTurmas().stream()
                                 .anyMatch(prodTurma -> prodTurma.equalsIgnoreCase(turma))))
+                .collect(Collectors.toList());
+    }
+
+    private List<Aluno> ordenarAlunos(List<Aluno> alunos, String ordenarPor, String ordem) {
+        return alunos.stream()
+                .sorted((a1, a2) -> {
+                    int comparison = switch (ordenarPor) {
+                        case "id" -> Long.compare(a1.getId(), a2.getId());
+                        case "nome" -> a1.getNome().compareToIgnoreCase(a2.getNome());
+                        default -> 0;
+                    };
+                    return "desc".equalsIgnoreCase(ordem) ? -comparison : comparison;
+                })
                 .collect(Collectors.toList());
     }
 

@@ -3,6 +3,9 @@
 
 # Trabalho final da disciplina de Tópicos Especiais em Desenvolvimento de Software 2 
 
+
+## PROFESSOR MEU FRONTEND NAO CONSEGUE ACESSAR MINHA API E NAO SEI POR QUE, MAS ELA ESTÁ FUNCIONANDO NORMALMENTE... =(
+
 Olá, meu nome é Gustavo Brenner e como trabalho final da disciplina estou realizando um sistema de cadastro de alunos e suas respectivas turmas para facilitar o trabalho de funcionários de escolas municipais.
 A aplicação rodará na Web, e está sendo feita com Java e Next.js
 

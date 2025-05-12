@@ -7,7 +7,7 @@ export const AlunoService = {
      * Busca todos os alunos disponíveis na API
      */
     async listarTodos(): Promise<Aluno[]> {
-        const response = await fetch (`${API_URL}/alunos`);
+        const response = await fetch(`${API_URL}/alunos`);
 
         if (!response.ok) {
             throw new Error(`Erro ao buscar alunos: ${response.status}`);

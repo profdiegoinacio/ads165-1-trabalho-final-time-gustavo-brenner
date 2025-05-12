@@ -180,7 +180,7 @@ public class AlunoController {
         final String HEADER_TOTAL_COUNT = "X-Total-Count";
         final String HEADER_TOTAL_PAGES = "X-Total-Pages";
         final String HEADER_PAGE = "X-Page";
-        final String HEADER_PAGE_SIZE = "X-Page-Size";
+
 
         int totalRegistros = alunos.size();
         int totalPaginas = (int) Math.ceil((double) totalRegistros / tamanho);
@@ -195,7 +195,6 @@ public class AlunoController {
                 .header(HEADER_TOTAL_COUNT, String.valueOf(totalRegistros))
                 .header(HEADER_TOTAL_PAGES, String.valueOf(totalPaginas))
                 .header(HEADER_PAGE, String.valueOf(pagina))
-                .header(HEADER_PAGE_SIZE, String.valueOf(tamanho))
                 .body(paginaDeAlunos);
     }
 }

@@ -1,23 +1,29 @@
 package com.example.backend;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Collections;
 import java.util.List;
 
+@Entity
+@Table(name = "alunos")
 public class Aluno {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
     private Long id;
 
     @NotBlank(message = "O nome não pode ser vazio.")
     @Size(min = 3, max = 50, message = "O nome deve ter entre 3 e 50 caracteres.")
+    @Column(nullable = false, length = 100)
     private String nome;
 
     @NotBlank(message = "A idade não pode ser vazia.")
+    @Column(nullable = false, length = 2)
     private Integer idade;
 
 

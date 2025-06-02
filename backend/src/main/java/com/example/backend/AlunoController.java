@@ -38,6 +38,11 @@ record RequestAluno(
 @RequestMapping("/alunos")
 public class AlunoController {
     private final List<Aluno> alunos = new ArrayList<>();
+    private final AlunoService alunoService;
+
+    public AlunoController(AlunoService alunoService) {
+        this.alunoService = alunoService;
+    }
 
     @PostConstruct
     public void inicializarAlunos() {
@@ -106,6 +111,13 @@ public class AlunoController {
         return ResponseEntity.ok(aluno);
 
     }
+
+    @GetMapping("/nome")
+    public ResponseEntity<List<Aluno>> buscarPorNome(@RequestParam String nome) {
+        List<Aluno> alunos = alunoService.buscarPorNome(nome);
+        return ResponseEntity.ok(alunos);
+    }
+
 
     @PatchMapping("/{id}")
     public ResponseEntity<Aluno> atualizarParcialmenteAluno(@PathVariable Long id, @RequestBody Map<String, Object> fields) {

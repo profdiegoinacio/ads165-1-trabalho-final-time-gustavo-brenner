@@ -7,6 +7,7 @@ export const AlunoService = {
      * Busca todos os alunos disponíveis na API
      */
     async listarTodos(): Promise<Aluno[]> {
+        console.log(`${API_URL}/alunos`)
         const response = await fetch(`${API_URL}/alunos`);
 
         if (!response.ok) {

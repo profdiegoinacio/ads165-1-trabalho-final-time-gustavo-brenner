@@ -27,3 +27,8 @@ server:
   port: 8080
   servlet:
     context-path: /api
+
+app:
+  jwt:
+    secret: 03O2Kdx9PoM8/9fE9OvSxhMX11tkAVguyFtNeuL/y6A=
+    expiration.ms: 3600000 # 1 hora

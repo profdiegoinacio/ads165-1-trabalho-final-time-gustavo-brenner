@@ -6,7 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "alunos")
@@ -26,8 +28,13 @@ public class Aluno {
     @Column(nullable = false, length = 2)
     private Integer idade;
 
-
-    private List<String> turmas;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "aluno_turma",
+            joinColumns = @JoinColumn(name = "aluno_id"),
+            inverseJoinColumns = @JoinColumn(name = "turma_id")
+    )
+    private Set<Turma> turmas = new HashSet<>();
 
 
     public Aluno() {
@@ -42,7 +49,7 @@ public class Aluno {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
-        this.turmas = turmas;
+
 
     }
     public Long getId() {
@@ -60,9 +67,7 @@ public class Aluno {
         return idade;
     }
 
-    public List<String> getTurmas() {
-        return turmas;
-    }
+    public Set<Turma> getTurma() { return turmas; }
 
     public void setNome(String nome) {
         this.nome = nome;
@@ -72,9 +77,7 @@ public class Aluno {
         this.idade = idade;
     }
 
-    public void setTurmas(List<String> turmas) {
-        this.turmas = turmas;
-    }
+    public void setTurmas(Set<Turma> turmas) { this.turmas = turmas; }
 }
 
 

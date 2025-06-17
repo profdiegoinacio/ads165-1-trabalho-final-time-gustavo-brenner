@@ -1,8 +1,14 @@
-package com.example.backend;
+package com.example.backend.services;
 
+import com.example.backend.Aluno;
+import com.example.backend.AlunoRepository;
+import com.example.backend.AlunoSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +21,12 @@ public class AlunoService {
     public AlunoService(AlunoRepository alunoRepository) {
         this.alunoRepository = alunoRepository;
     }
-    @Transactional(readOnly = true)
+    @Transactional()
     public List<Aluno> listarTodos(){
         return alunoRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional()
     public Aluno buscarPorId(Long id ){
         return alunoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Aluno não encontrado com id: " + id));
     }
@@ -47,5 +53,15 @@ public class AlunoService {
     @Transactional
     public List<Aluno> buscarPorNome(String nome) {
         return alunoRepository.findByNomeContainingIgnoreCase(nome);
+    }
+    @Transactional()
+    public Page<Aluno> listarComFiltrosEPaginacao(
+            String nome, Integer idade, Long turmaId, Pageable pageable) {
+
+        Specification<Aluno> spec = AlunoSpecifications.comFiltros(
+                nome, idade, turmaId
+        );
+
+        return alunoRepository.findAll(pageable);
     }
 }

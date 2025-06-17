@@ -7,6 +7,6 @@ interface Props {
     children: React.ReactNode;
 }
 
-export default function SessionProviderWrapper({ children }: Props) {
+export default function SessionProviderWrappers({ children }: Props) {
     return <SessionProvider>{children}</SessionProvider>;
 }

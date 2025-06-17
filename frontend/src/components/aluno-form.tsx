@@ -1,7 +1,7 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import {Aluno} from "@/app/types/aluno";
+import {Aluno} from "@/types/aluno";
 import {AlunoService} from "@/services/aluno-services";
 
 interface AlunoFormProps {
@@ -13,7 +13,8 @@ interface AlunoFormProps {
 // Definindo um estado inicial consistente para o alunp
 const alunoInicial: Aluno = {
     nome: '',
-    idade: 0
+    idade: 0,
+    turma: ''
 
 };
 
@@ -36,7 +37,8 @@ export default function AlunoForm({alunoId, onSalvar, onCancelar}: AlunoFormProp
                     setAluno({
                         nome: dadosAluno.nome || '',
                         idade: dadosAluno.idade,
-                        id: dadosAluno.id
+                        id: dadosAluno.id,
+                        turma: dadosAluno.turma
                     });
                 } catch (error) {
                     setErro('Erro ao carregar o aluno para edição.');

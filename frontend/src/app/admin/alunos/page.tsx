@@ -1,9 +1,9 @@
 'use client';
 
 import {useEffect, useState} from 'react';
-import {Aluno} from "@/app/types/aluno";
+import {Aluno} from "@/types/aluno";
 import {AlunoService} from "@/services/aluno-services";
-import AlunoForm from "@/app/components/aluno-form";
+import AlunoForm from "@/components/aluno-form";
 
 export default function AdminAlunos() {
 

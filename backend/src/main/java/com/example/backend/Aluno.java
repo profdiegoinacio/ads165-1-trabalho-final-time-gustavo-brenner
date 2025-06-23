@@ -28,7 +28,7 @@ public class Aluno {
     @Column(nullable = false, length = 2)
     private Integer idade;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "aluno_turma",
             joinColumns = @JoinColumn(name = "aluno_id"),

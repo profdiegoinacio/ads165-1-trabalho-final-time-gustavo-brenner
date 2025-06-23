@@ -45,7 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/login", "/auth/register", "/error").permitAll() // Endpoints públicos
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Permitir requisições OPTIONS (pre-flight)
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Exemplo de restrição por papel
-                        .anyRequest().authenticated() // Todas as outras requisições exigem autenticação
+                        .anyRequest().permitAll() // Todas as outras requisições exigem autenticação
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Sessões stateless

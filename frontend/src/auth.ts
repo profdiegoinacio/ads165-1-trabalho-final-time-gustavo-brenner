@@ -59,7 +59,7 @@ export const {
             },
         }),
         // Adicione outros provedores aqui (Google, GitHub, etc.)
-        // Ex: GoogleProvider({ clientId: process.env.GOOGLE_CLIENT_ID, clientSecret: process.env.GOOGLE_CLIENT_SECRET })
+       // GoogleProvider({ clientId: process.env.GOOGLE_CLIENT_ID, clientSecret: process.env.GOOGLE_CLIENT_SECRET })
     ],
     // Session strategy: JWT é o padrão e recomendado para esta arquitetura
     session: {
